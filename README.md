@@ -5,17 +5,17 @@
 *This copy of code is for study of python only*
 
 ## 项目结构：
-###### 1、asyndns.py 用于处理dns请求
+###### 1、asyncdns.py 用于处理dns请求
 ###### 2、common.py
-###### 3、daemon.py，提供daemon运行机制
-###### 4、encrypt，处理shadowsocks协议的加密解密
-###### 5、eventloop，事件循环，使用select、poll、epoll、kequeue实现IO复用，作者讲三种底层实现包装成一个类Eventloop
-###### 6、local，在本地运行的程序
-###### 7、lru_cache.py，作者实现的一个基于LRU的缓存
-###### 8、server.py，在远程运行的程序
-###### 9、tcprelay，实现tcp的转达，用在远程端中使远程和dest连接
-###### 10、udprelay，实现udp的转达，用于local端处理local和客户端的socks5协议通信，用于local端和远程端shadowsocks协议的通信；用于远程端与local端shadowsocks协议的通信，用于远程端和dest端的通信
-###### 11、utils.py
+###### 3、daemon.py，提供daemon(守护进程)运行机制
+###### 4、encrypt.py，处理Shadowsocks协议的加密解密
+###### 5、eventloop.py，事件循环，使用select、poll、epoll、kequeue实现IO复用，作者将三种底层实现包装成一个类Eventloop
+###### 6、local.py讲，在本地(客户端)运行的程序
+###### 7、lru_cache.py，作者实现的一个基于LRU的Key-Value缓存
+###### 8、server.py，在远程服务端运行的程序
+###### 9、tcprelay.py，实现tcp的转达，用在远程端中使远程和dest连接
+###### 10、udprelay.py，实现udp的转达，用于local端处理local和 客户器端的SOCKS5协议通信，用于local端和远程端Shadowsocks协议的通信；用于远程端与local端Shadowsocks协议的通信，用于远程端和dest端(destination)的通信
+###### 11、utils.py 工具函数
 
 > 代码质量相当的高，感觉都能达到重用的级别。而且由于作者设计的思想是，一个配置文件，同一段程序，在本地和远程通用，所以其中的代码，常常能够达到一个函数，在本地和服务器有不同的功能这样的效果。
 
