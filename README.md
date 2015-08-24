@@ -1,5 +1,7 @@
 # shadowsocks源码分析
 
+[![Join the chat at https://gitter.im/lao605/shadowsocks_analysis](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lao605/shadowsocks_analysis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 *此份代码仅用作学术交流用途，其他行为带来的后果本人概不负责*
 
 *This copy of code is for study of python only*
