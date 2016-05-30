@@ -48,7 +48,7 @@ chr = compat_chr
 
 
 def to_bytes(s):
-    if bytes != str:
+    if bytes != str:   # python2 中此语句为 True, 但在python3 中为False
         if type(s) == str:
             return s.encode('utf-8')
     return s
@@ -62,6 +62,8 @@ def to_str(s):
 
 
 def inet_ntop(family, ipstr):
+    """ 转换地址函数, 把32位地址转换为字符串格式(ipv4:点分十进制, ipv6:冒号分16进制)的地址
+    """
     if family == socket.AF_INET:
         return to_bytes(socket.inet_ntoa(ipstr))
     elif family == socket.AF_INET6:
@@ -73,6 +75,8 @@ def inet_ntop(family, ipstr):
 
 
 def inet_pton(family, addr):
+    """ 把点分十进制/冒号分十六进制的地址转化为二进制格式 
+    """
     addr = to_str(addr)
     if family == socket.AF_INET:
         return socket.inet_aton(addr)
@@ -102,22 +106,26 @@ def inet_pton(family, addr):
 
 
 def patch_socket():
+    """ 补充socket的方法 inet_pton和inet_ntop
+    """
     if not hasattr(socket, 'inet_pton'):
         socket.inet_pton = inet_pton
 
     if not hasattr(socket, 'inet_ntop'):
         socket.inet_ntop = inet_ntop
 
-
+# 直接补充
 patch_socket()
 
-
+# 地址类型枚举 
 ADDRTYPE_IPV4 = 1
 ADDRTYPE_IPV6 = 4
 ADDRTYPE_HOST = 3
 
 
 def pack_addr(address):
+    """ 把字符串address封装起来, 封装格式为8位地址族标记+二进制格式地址
+    """
     address_str = to_str(address)
     for family in (socket.AF_INET, socket.AF_INET6):
         try:
@@ -134,6 +142,8 @@ def pack_addr(address):
 
 
 def parse_header(data):
+    """ 数据解包, 数据格式: 协议代码(1)[地址长度(1)]地址(?)端口(2)数据(?)
+    """
     addrtype = ord(data[0])
     dest_addr = None
     dest_port = None
@@ -171,7 +181,7 @@ def parse_header(data):
         return None
     return addrtype, to_bytes(dest_addr), dest_port, header_length
 
-
+# 单元测试
 def test_inet_conv():
     ipv4 = b'8.8.4.4'
     b = inet_pton(socket.AF_INET, ipv4)
